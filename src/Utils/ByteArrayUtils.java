@@ -1,5 +1,8 @@
 package Utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 public class ByteArrayUtils {
     /**
      * int transform to byte array
@@ -31,5 +34,14 @@ public class ByteArrayUtils {
         return (b0 << 24) | (b1 << 16) | (b2 << 8) | b3;
     }
 
+    /**
+     * byte array transform to InputStream
+     *
+     * @param bytes input byte array
+     * @return InputStream
+     */
+    public static InputStream byteToInputStream(byte[] bytes){
+        return new ByteArrayInputStream(bytes);
+    }
 
 }
