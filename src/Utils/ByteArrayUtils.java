@@ -1,3 +1,5 @@
+package Utils;
+
 public class ByteArrayUtils {
     /**
      * int transform to byte array
