@@ -1,43 +1,14 @@
 package X509;
 
-import com.sun.org.apache.xml.internal.security.algorithms.Algorithm;
-import sun.misc.BASE64Decoder;
-import sun.security.util.Pem;
-import sun.security.x509.X509Key;
-
 import java.io.*;
-import java.lang.reflect.Method;
-import java.nio.charset.Charset;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.*;
-import java.util.Base64.Decoder;
-
-import static java.util.Base64.*;
 
 public class X509CerUsing {
 
-    public static void main(String[] args) {
-        new X509CerUsing();
-    }
-
     public X509CerUsing() {
-//        try {
-//            InputStream fis = new FileInputStream(new File("C:/Users/AAA/Desktop/2.cer"));
-//
-//            CertificateFactory certificateFactory = null;
-//            try {
-//                certificateFactory = CertificateFactory.getInstance("X.509");
-//                X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(fis);
-//            } catch (CertificateException e) {
-//                e.printStackTrace();
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-
+        // sample cer values
         String sss = "MIIDVDCCAjygAwIBAgIDAjRWMA0GCSqGSIb3DQEBBQUAMEIxCzAJBgNVBAYTAlVT" +
                 "MRYwFAYDVQQKEw1HZW9UcnVzdCBJbmMuMRswGQYDVQQDExJHZW9UcnVzdCBHbG9i" +
                 "YWwgQ0EwHhcNMDIwNTIxMDQwMDAwWhcNMjIwNTIxMDQwMDAwWjBCMQswCQYDVQQG" +
@@ -56,19 +27,13 @@ public class X509CerUsing {
                 "PseKUgzbFbS9bZvlxrFUaKnjaZC2mqUPuLk/IH2uSrW4nOQdtqvmlKXBx4Ot2/Un" +
                 "hw4EbNX/3aBd7YdStysVAq45pmp06drE57xNNB6pXE0zX5IJL4hmXXeXxx12E6nV" +
                 "5fEWCRE11azbJHFwLJhWC9kXtNHjUStedejV0NxPNO3CBWaAocvmMw==";
-
-        System.out.println(" str len = " + sss.length());
-        byte[] v = Base64.getDecoder().decode(sss);
-        X509Certificate x509Certificate = analyseCer(v);
-        System.out.println("" + x509Certificate.getIssuerDN().getName());
-        System.out.println("" + x509Certificate.getSigAlgName());
     }
 
     /**
-     * 返回具有证书内容的对象
+     * get object X509Certificate contains X509 cer content
      *
-     * @param cerValues 证书内容
-     * @return 具有证书内容的对象
+     * @param cerValues cer bytes array
+     * @return X509Certificate object
      */
     public X509Certificate analyseCer(byte[] cerValues) {
         try {
@@ -76,6 +41,23 @@ public class X509CerUsing {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             return (X509Certificate) certificateFactory.generateCertificate(is);
         } catch (CertificateException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * get object X509Certificate contains X509 cer content by cer file
+     *
+     * @param sAddress cer file address
+     * @return X509Certificate object
+     */
+    public X509Certificate analyseCer(String sAddress) {
+        try {
+            InputStream fis = new FileInputStream(new File(sAddress));
+            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+            return (X509Certificate) certificateFactory.generateCertificate(fis);
+        } catch (FileNotFoundException | CertificateException e) {
             e.printStackTrace();
         }
         return null;
