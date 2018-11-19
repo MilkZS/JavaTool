@@ -24,19 +24,34 @@ public class ByteBufferUtils {
         return (b0 << 24) | (b1 << 16) | (b2 << 8) | b3;
     }
 
+    public static int byteBufferToInt(ByteBuffer byteBuffer){
+        int i = byteBuffer.getInt();
+        byteBuffer.clear();
+        byteBuffer.putInt(i);
+        byteBuffer.flip();
+        return i;
+    }
+
     /**
      * Integer transform to ByteBuffer
      *
      * @param i input Integer data
      * @return ByteBuffer data
      */
+//    public static ByteBuffer intToByteBuffer(int i){
+//        byte[] targets = new byte[4];
+//        targets[3] = (byte) (i & 0xFF);
+//        targets[2] = (byte) (i >> 8 & 0xFF);
+//        targets[1] = (byte) (i >> 16 & 0xFF);
+//        targets[0] = (byte) (i >> 24 & 0xFF);
+//        return ByteBuffer.wrap(targets);
+//    }
+
     public static ByteBuffer intToByteBuffer(int i){
-        byte[] targets = new byte[4];
-        targets[3] = (byte) (i & 0xFF);
-        targets[2] = (byte) (i >> 8 & 0xFF);
-        targets[1] = (byte) (i >> 16 & 0xFF);
-        targets[0] = (byte) (i >> 24 & 0xFF);
-        return ByteBuffer.wrap(targets);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(4);
+        byteBuffer.putInt(i);
+        byteBuffer.flip();
+        return byteBuffer;
     }
 
 }
