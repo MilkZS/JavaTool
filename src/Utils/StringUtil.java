@@ -1,6 +1,6 @@
 package Utils;
 
-public class StringFormatUtil {
+public class StringUtil {
 
     /**
      * byte array format to hex string
@@ -38,5 +38,16 @@ public class StringFormatUtil {
             result[i] = (byte) Integer.parseInt(hexStr.substring(2*i,2*i+2),16);
         }
         return result;
+    }
+
+    /**
+     * replay s1 with s2 among souStr
+     *
+      * @param souStr source string
+     * @param s1 to replay s1
+     * @param s2 replay with s2
+     */
+    public static void replayStr(String[] souStr,String s1,String s2){
+        souStr[0] = souStr[0].replaceAll(s1,s2);
     }
 }
